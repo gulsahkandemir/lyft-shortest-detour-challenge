@@ -1,80 +1,87 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Calculate the shortest detour</title>
-    
-    <script src="http://maps.google.com/maps/api/js?v=3.exp&amp;sensor=false&amp;key=AIzaSyAVdLyIXC4X31tjWLdcQHu5HvgWIl0BowM" type="text/javascript"></script>
-    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
-    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-    <script src="dt.calculate.js"></script>
+  <title>Lyft Shortest Detour Challenge</title>
+  
+  <script src="http://maps.google.com/maps/api/js?v=3.exp&amp;sensor=false&amp;key=AIzaSyAVdLyIXC4X31tjWLdcQHu5HvgWIl0BowM" type="text/javascript"></script>
+  <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+  <script src="dt.calculate.js"></script>
 
-    <link href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" rel="stylesheet">
-    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" rel="stylesheet">
+  <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+  <body>
     <div class="container dt-calculate" style="margin-top: 20px;">
-        <div class="row">
-            <div class="col-sm-6 col-sm-offset-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Lyft Shortest Detour Challenge</h3>
-                    </div>
-                    <div class="panel-body">
-                        <form class="form-horizontal js-calculate-form" role="form">
+      <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+          <blockquote>
+            <p>
+              Calculate the detour distance between two different rides. Given four latitude / longitude pairs, where driver one is traveling from point A to point B and driver two is traveling from point C to point D, write a function (in your language of choice) to calculate the shorter of the detour distances the drivers would need to take to pick-up and drop-off the other driver.
+            </p>
+            <small>Lyft</small>
+          </blockquote> 
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Lyft Shortest Detour Challenge</h3>
+            </div>
+            <div class="panel-body">
 
-                          <div class="form-group">
-                            <label for="latA" class="col-sm-2 control-label">Point A</label>
-                            <div class="col-sm-5">
-                              <input type="text" class="form-control latA" placeholder="Latitude">
-                            </div>
-                            <div class="col-sm-5">
-                              <input type="text" class="form-control lngA" placeholder="Longitude">
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <label for="latB" class="col-sm-2 control-label">Point B</label>
-                            <div class="col-sm-5">
-                              <input type="text" class="form-control latB" placeholder="Latitude">
-                            </div>
-                            <div class="col-sm-5">
-                              <input type="text" class="form-control lngB" placeholder="Longitude">
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <label for="latC" class="col-sm-2 control-label">Point C</label>
-                            <div class="col-sm-5">
-                              <input type="text" class="form-control latC" placeholder="Latitude">
-                            </div>
-                            <div class="col-sm-5">
-                              <input type="text" class="form-control lngC" placeholder="Longitude">
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <label for="latD" class="col-sm-2 control-label">Point D</label>
-                            <div class="col-sm-5">
-                              <input type="text" class="form-control latD" placeholder="Latitude">
-                            </div>
-                            <div class="col-sm-5">
-                              <input type="text" class="form-control lngD" placeholder="Longitude">
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                              <button type="submit" class="btn btn-default js-calculate-btn">Calculate</button>
-                            </div>
-                          </div>
-                        </form>
-                    </div>
+              <form class="form-horizontal js-calculate-form" role="form">
+
+                <div class="form-group">
+                  <label for="latA" class="col-sm-2 control-label">Point A</label>
+                  <div class="col-sm-5">
+                    <input type="text" class="form-control latA" placeholder="Latitude">
+                  </div>
+                  <div class="col-sm-5">
+                    <input type="text" class="form-control lngA" placeholder="Longitude">
+                  </div>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6 col-sm-offset-3">
-                <div class="alert alert-info js-result-alert" style="display: none;">
+                <div class="form-group">
+                  <label for="latB" class="col-sm-2 control-label">Point B</label>
+                  <div class="col-sm-5">
+                    <input type="text" class="form-control latB" placeholder="Latitude">
+                  </div>
+                  <div class="col-sm-5">
+                    <input type="text" class="form-control lngB" placeholder="Longitude">
+                  </div>
                 </div>
+                <div class="form-group">
+                  <label for="latC" class="col-sm-2 control-label">Point C</label>
+                  <div class="col-sm-5">
+                    <input type="text" class="form-control latC" placeholder="Latitude">
+                  </div>
+                  <div class="col-sm-5">
+                    <input type="text" class="form-control lngC" placeholder="Longitude">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="latD" class="col-sm-2 control-label">Point D</label>
+                  <div class="col-sm-5">
+                    <input type="text" class="form-control latD" placeholder="Latitude">
+                  </div>
+                  <div class="col-sm-5">
+                    <input type="text" class="form-control lngD" placeholder="Longitude">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-default js-calculate-btn">Calculate</button>
+                  </div>
+                </div>
+              </form>
             </div>
+          </div>
         </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+          <div class="alert alert-info js-result-alert" style="display: none;">
+          </div>
+        </div>
+      </div>
     </div>
-</body>
+  </body>
 </html>
