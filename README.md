@@ -1,6 +1,3 @@
-lyft-shortest-detour-challenge
-==============================
-
 # [Lyft Shortest Detour Challenge](http://funma.pl/yft/)
 
 This is the source code of Lyft's shortest detour programming challenge. Challenge description is:
