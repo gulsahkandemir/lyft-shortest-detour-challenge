@@ -26,6 +26,7 @@ $.widget('dt.dt_calculate', {
     },
     directionsService: null,
     _create: function() {
+        // initialize the widget elements and direction service
         this.directionsService = new google.maps.DirectionsService();
         this._initUiEles();
         this.eles.calculateForm.on("submit", $.proxy(this._onCalculateFormSubmit, this));
@@ -39,15 +40,19 @@ $.widget('dt.dt_calculate', {
     },
     _onCalculateFormSubmit: function(event) {
         event.preventDefault();
+        // on start of each calculate operation hide the existing result, empty contentts
         this.eles.resultAlert.hide();
         this.eles.resultAlert.empty();
+        // hide the button until calculation is done
         this.eles.calculateForm.find("button").attr("disabled", "disabled");
 
+        // construct the points from inputs
         var pointA = this.element.find(".latA").val() + "," + this.element.find(".lngA").val();
         var pointB = this.element.find(".latB").val() + "," + this.element.find(".lngB").val();
         var pointC = this.element.find(".latC").val() + "," + this.element.find(".lngC").val();
         var pointD = this.element.find(".latD").val() + "," + this.element.find(".lngD").val();
 
+        // construct the waypoints for routes A->B (first driver) and C->D (second driver)
         var waypointsFirstDriver = [];
         waypointsFirstDriver.push({
             location: pointC,
@@ -68,12 +73,16 @@ $.widget('dt.dt_calculate', {
             stopover: true
         });
 
+        // for each route to be calculated, call the requestRoute function
         this._requestRoute(pointA, pointB, waypointsFirstDriver, "firstDetour");
         this._requestRoute(pointC, pointD, waypointsSecondDriver, "secondDetour");
         this._requestRoute(pointA, pointB, null, "firstTour");
         this._requestRoute(pointC, pointD, null, "secondTour");
     },
+    // requestRoute function accepts an origin point, a destination point, a waypoint array
+    // and distance type key as inputs. 
     _requestRoute: function(origin, destination, waypoints, distanceType) {
+        // construct the request object that directionService requests.
         var routeRequest = {
             origin: origin,
             destination: destination,
@@ -82,13 +91,19 @@ $.widget('dt.dt_calculate', {
             waypoints: waypoints,
             optimizeWaypoints: false
         };
-
+        // at each callback of .route function, the distance of the distanceType is
+        // assigned to the return distance value of routeCallback 
+        // and flag is incremented by one
+        // and callbackFinished function is called 
         this.directionsService.route(routeRequest, $.proxy(function(response, status) {
             this.distances[distanceType] = this._routeCallback(response, status);
             this.flags.callback++;
             this._callbackFinished();
         }, this));
     },
+    // this function calculates the distance of the route if the status is OK
+    // and if the status is ZERO_RESULTS then distance is set to -1
+    // else error flag is raised
     _routeCallback: function(response, status) {
         var distance = 0; 
         switch(status) {
